@@ -6,7 +6,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.3.9
-Release: 3%{?dist}.2
+Release: 5%{?dist}
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
@@ -16,6 +16,7 @@ Patch1: apr-0.9.7-deepbind.patch
 Patch2: apr-1.2.2-locktimeout.patch
 Patch3: apr-1.2.2-libdir.patch
 Patch4: apr-1.2.7-pkgconf.patch
+Patch5: apr-1.3.9-r1309394.patch
 # Security fixes
 Patch10: apr-1.3.9-CVE-2011-0419.patch
 Patch11: apr-1.2.7-fnmatch.patch
@@ -46,6 +47,7 @@ C data structures and routines.
 %patch2 -p1 -b .locktimeout
 %patch3 -p1 -b .libdir
 %patch4 -p1 -b .pkgconf
+%patch5 -p1 -b .r1309394
 
 %patch10 -p1 -b .cve0419
 %patch11 -p1 -b .fnmatch
@@ -129,10 +131,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*.m4
 
 %changelog
-* Fri May 20 2011 Joe Orton <jorton@redhat.com> - 1.3.9-3.2
-- add fix for apr_fnmatch() regression (CVE-2011-1928, #706352)
+* Fri Jun  8 2012 Joe Orton <jorton@redhat.com> - 1.3.9-5
+- add fix for apr_mcast_hops w/AF_INET6 socket (#824515)
 
-* Tue May 10 2011 Joe Orton <jorton@redhat.com> - 1.3.9-3.1
+* Thu Mar  1 2012 Joe Orton <jorton@redhat.com> - 1.3.9-4
+- add fix for apr_fnmatch() regression (CVE-2011-1928, #706352)
 - add fix for CVE-2011-0419 (#703520)
 
 * Sun Oct 25 2009 Bojan Smojver <bojan@rexursive.com> - 1.3.9-3
