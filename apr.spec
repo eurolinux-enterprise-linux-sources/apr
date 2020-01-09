@@ -6,7 +6,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.3.9
-Release: 3%{?dist}
+Release: 3%{?dist}.1
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
@@ -16,6 +16,8 @@ Patch1: apr-0.9.7-deepbind.patch
 Patch2: apr-1.2.2-locktimeout.patch
 Patch3: apr-1.2.2-libdir.patch
 Patch4: apr-1.2.7-pkgconf.patch
+# Security fixes
+Patch10: apr-1.3.9-CVE-2011-0419.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: autoconf, libtool, libuuid-devel, python
 
@@ -43,6 +45,8 @@ C data structures and routines.
 %patch2 -p1 -b .locktimeout
 %patch3 -p1 -b .libdir
 %patch4 -p1 -b .pkgconf
+
+%patch10 -p1 -b .cve0419
 
 %build
 # regenerate configure script etc.
@@ -123,6 +127,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Tue May 10 2011 Joe Orton <jorton@redhat.com> - 1.3.9-3.1
+- add fix for CVE-2011-0419 (#703520)
+
 * Sun Oct 25 2009 Bojan Smojver <bojan@rexursive.com> - 1.3.9-3
 - remove uuid/crypt libs from pkg-config file
 
