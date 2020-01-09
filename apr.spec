@@ -6,7 +6,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.3.9
-Release: 3%{?dist}.1
+Release: 3%{?dist}.2
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
@@ -18,6 +18,7 @@ Patch3: apr-1.2.2-libdir.patch
 Patch4: apr-1.2.7-pkgconf.patch
 # Security fixes
 Patch10: apr-1.3.9-CVE-2011-0419.patch
+Patch11: apr-1.2.7-fnmatch.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: autoconf, libtool, libuuid-devel, python
 
@@ -47,6 +48,7 @@ C data structures and routines.
 %patch4 -p1 -b .pkgconf
 
 %patch10 -p1 -b .cve0419
+%patch11 -p1 -b .fnmatch
 
 %build
 # regenerate configure script etc.
@@ -127,6 +129,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri May 20 2011 Joe Orton <jorton@redhat.com> - 1.3.9-3.2
+- add fix for apr_fnmatch() regression (CVE-2011-1928, #706352)
+
 * Tue May 10 2011 Joe Orton <jorton@redhat.com> - 1.3.9-3.1
 - add fix for CVE-2011-0419 (#703520)
 
