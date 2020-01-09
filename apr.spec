@@ -6,7 +6,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.3.9
-Release: 5%{?dist}
+Release: 5%{?dist}.1
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
@@ -20,6 +20,7 @@ Patch5: apr-1.3.9-r1309394.patch
 # Security fixes
 Patch10: apr-1.3.9-CVE-2011-0419.patch
 Patch11: apr-1.2.7-fnmatch.patch
+Patch12: apr-1.3.9-CVE-2017-12613.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: autoconf, libtool, libuuid-devel, python
 
@@ -51,6 +52,8 @@ C data structures and routines.
 
 %patch10 -p1 -b .cve0419
 %patch11 -p1 -b .fnmatch
+# https://bugzilla.redhat.com/show_bug.cgi?id=1506523
+%patch12 -p1 -b .CVE-2017-12613
 
 %build
 # regenerate configure script etc.
@@ -131,6 +134,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Oct 30 2017 Luboš Uhliarik <luhliari@redhat.com> - 1.3.9-5.1
+- Resolves: #1507346 - CVE-2017-12613 apr: Out-of-bounds array deref
+  in apr_time_exp*() functions
+
 * Fri Jun  8 2012 Joe Orton <jorton@redhat.com> - 1.3.9-5
 - add fix for apr_mcast_hops w/AF_INET6 socket (#824515)
 
